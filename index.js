@@ -17,10 +17,10 @@ function getThumbnailURL(link, setParams) {
     };
 
     if (typeof setParams == 'object') {
-        let keys = Object.keys(setParams);
+        var n, key, keys = Object.keys(setParams);
 
-        for (let n in keys) {
-            let key = keys[n];
+        for (n in keys) {
+            key = keys[n];
 
             params[key] = setParams[key];
         }
@@ -29,7 +29,7 @@ function getThumbnailURL(link, setParams) {
     return new Promise(function(resolve, reject) {
         var type, url, pattern, match, position;
 
-        for(let i=0; i < params.patterns.length; i++) {
+        for(var i=0; i < params.patterns.length; i++) {
             pattern = params.patterns[i];
 
             if ((match = link.match(pattern.regex)) && match) {
@@ -48,8 +48,8 @@ function getThumbnailURL(link, setParams) {
             resolve(url + '/' + params.ytimg + '.jpg');
         else if (type == 'vimeo'){
             $.getJSON(url)
-                .done((data) => {resolve(data[0]['thumbnail_' + params.vmimg])})
-                .fail((err) => {reject(err.statusText)})
+                .done(function(data){resolve(data[0]['thumbnail_' + params.vmimg])})
+                .fail(function(err){reject(err.statusText)})
         }
     });
 }
