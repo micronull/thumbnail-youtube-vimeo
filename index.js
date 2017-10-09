@@ -47,9 +47,10 @@ function getThumbnailURL(link, setParams) {
         else if (type == 'youtube')
             resolve(url + '/' + params.ytimg + '.jpg');
         else if (type == 'vimeo'){
-            $.getJSON(url)
-                .done(function(data){resolve(data[0]['thumbnail_' + params.vmimg])})
-                .fail(function(err){reject(err.statusText)})
+            fetch(url)
+                .then(function(response){return response.json()})
+                .then(function(data){resolve(data[0]['thumbnail_' + params.vmimg])})
+                .catch(function(err){reject(err.statusText)})
         }
     });
 }
